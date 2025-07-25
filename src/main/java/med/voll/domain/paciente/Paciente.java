@@ -1,11 +1,11 @@
-package med.voll.paciente;
+package med.voll.domain.paciente;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.direccion.Direccion;
+import med.voll.domain.direccion.Direccion;
 
 @Getter
 @EqualsAndHashCode(of = "id")

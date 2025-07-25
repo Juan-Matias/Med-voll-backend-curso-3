@@ -1,6 +1,6 @@
-package med.voll.medico;
+package med.voll.domain.medico;
 
-import med.voll.direccion.Direccion;
+import med.voll.domain.direccion.Direccion;
 
 public record DatosDetalleMedico(
         Long id,

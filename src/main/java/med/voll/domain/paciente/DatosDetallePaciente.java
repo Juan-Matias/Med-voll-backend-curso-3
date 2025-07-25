@@ -1,7 +1,7 @@
-package med.voll.paciente;
+package med.voll.domain.paciente;
 
 
-import med.voll.direccion.Direccion;
+import med.voll.domain.direccion.Direccion;
 
 public record DatosDetallePaciente(String nombre, String email, String telefono, String documentoIdentidad, Direccion direccion) {
 
