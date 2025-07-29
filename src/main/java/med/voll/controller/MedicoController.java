@@ -31,15 +31,17 @@ public class MedicoController {
 
     // Verbo http Get Leer
     @GetMapping
-    public ResponseEntity<Page<DatosListaMedico>> listar
-    (@PageableDefault(size = 10, sort = {"nombre"}) Pageable paginacion)
-    {
-        Page<DatosListaMedico> pagina = repository.
-                findAllByActivoTrue(paginacion).
-                map(DatosListaMedico::new);
-        // http 200 ok
+    public ResponseEntity<Page<DatosListaMedico>> listar(
+            @PageableDefault(size = 10, sort = {"nombre"}) Pageable paginacion) {
+
+        Page<DatosListaMedico> pagina = repository
+                .findAllByActivoTrue(paginacion)
+                .map(DatosListaMedico::new);
+
+        // HTTP 200 OK
         return ResponseEntity.ok(pagina);
     }
+
 
     // Verbo http Put Actualizar
     @Transactional
