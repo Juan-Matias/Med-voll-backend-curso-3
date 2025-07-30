@@ -31,8 +31,9 @@ public class TokenService {
     }
 
     private Instant fechaExpiracion() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return Instant.now().plusSeconds(7200); // 2 horas en segundos desde UTC
     }
+
 
     public String getSubject(String tokenJWT) {
         try {
@@ -47,3 +48,4 @@ public class TokenService {
         }
     }
 }
+
