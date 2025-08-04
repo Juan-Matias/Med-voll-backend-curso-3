@@ -1,5 +1,4 @@
 package med.voll.domain.consulta;
-import jakarta.validation.Valid;
 import med.voll.domain.ValidacionException;
 import med.voll.domain.consulta.validaciones.ValidadorDeConsultas;
 import med.voll.domain.medico.Medico;
@@ -35,15 +34,15 @@ public class ReservaDeConsultas {
             throw new ValidacionException("No existe un médico con el id informado");
         }
 
-        // Validaciones
-        validadores.forEach(v -> v.validar(datos ));
-        var medico = elegirMedico(datos);
-        if(medico ==null){
-            throw new ValidacionException("No existe un Medico disponible en ese horarios");
-        }
+        //validaciones
+        validadores.forEach(v -> v.validar(datos));
 
+        var medico = elegirMedico(datos);
+        if(medico == null){
+            throw new ValidacionException("No existe un médico disponible en ese horario");
+        }
         var paciente = pacienteRepository.findById(datos.idPaciente()).get();
-        var consulta = new Consulta(null, medico, paciente, datos.fecha(),null);
+        var consulta = new Consulta(null, medico, paciente, datos.fecha());
         consultaRepository.save(consulta);
         return new DatosDetalleConsulta(consulta);
     }
@@ -57,13 +56,5 @@ public class ReservaDeConsultas {
         }
 
         return medicoRepository.elegirMedicoAleatorioDisponibleEnLaFecha(datos.especialidad(), datos.fecha());
-    }
-
-    public void cancelar(DatosCancelamientoConsulta datos) {
-        if (!consultaRepository.existsById(datos.idConsulta())) {
-            throw new ValidacionException("Id de la consulta informado no existe!");
-        }
-        var consulta = consultaRepository.getReferenceById(datos.idConsulta());
-        consulta.cancelar(datos.motivo());
     }
 }

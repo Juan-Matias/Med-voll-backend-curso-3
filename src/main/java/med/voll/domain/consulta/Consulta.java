@@ -1,7 +1,6 @@
 package med.voll.domain.consulta;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,11 +32,4 @@ public class Consulta {
 
     private LocalDateTime fecha;
 
-    @Column(name = "motivo_cancelamiento")
-    @Enumerated(EnumType.STRING)
-    private MotivoCancelamiento motivoCancelamiento;
-
-    public void cancelar(MotivoCancelamiento motivo) {
-        this.motivoCancelamiento = motivo;
-    }
 }
