@@ -38,9 +38,8 @@ class MedicoRepositoryTest {
                 .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
                 .atTime(10, 0);
 
-        var medico = registrarMedico("Carlos", "carlos@email.com", "123456", Especialidad.CARDIOLOGIA);
+        var medico = registrarMedico("Medico1", "medico@email.com", "123456", Especialidad.CARDIOLOGIA);
         var paciente = registrarPaciente("Lucía", "lucia@email.com", "654321");
-
         registrarConsulta(medico, paciente, proximoLunesALas10);
 
         // Act
@@ -50,6 +49,25 @@ class MedicoRepositoryTest {
         // Assert
         assertThat(medicoLibre).isNull();
     }
+
+    @Test
+    @DisplayName("Debería devolver medico cuando el médico buscado esta disponible en esa fecha")
+    void elegirMedicoAleatorioDisponibleEnLaFechaEscenario2() {
+        // Arrange
+        var proximoLunesALas10 = LocalDate.now()
+                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                .atTime(10, 0);
+
+        var medico = registrarMedico("Medico1", "medico@email.com", "123456", Especialidad.CARDIOLOGIA);
+
+        // Act
+        var medicoLibre = medicoRepository
+                .elegirMedicoAleatorioDisponibleEnLaFecha(Especialidad.CARDIOLOGIA, proximoLunesALas10);
+
+        // Assert
+        assertThat(medicoLibre).isEqualTo(medico);
+    }
+
 
     private void registrarConsulta(Medico medico, Paciente paciente, LocalDateTime fecha) {
         em.persist(new Consulta(null, medico, paciente, fecha));
@@ -94,7 +112,9 @@ class MedicoRepositoryTest {
                 "Distrito Y",
                 "Ciudad Z",
                 "123",
-                "1"
+                "1",
+                "Ciudada x",
+                "Estado x"
         );
     }
 }
